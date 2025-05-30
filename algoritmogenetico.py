@@ -76,7 +76,7 @@ def main():
    
     taxa_mutacao = 0.05
     populacao_tamanho = 10
-    max_geracoes = 100
+    max_geracoes = 1000
     mostrar_individuos = False
     mostrar_filhos = True
 
