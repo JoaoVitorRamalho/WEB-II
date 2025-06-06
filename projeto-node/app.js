@@ -1,8 +1,10 @@
 import express from 'express';
-import film_router from './routers/film_router.js';
-import ator_router from './routers/ator_router.js';
-import genero_router from './routers/genero_router.js';
-import reprodutor_router from './routers/reprodutor_router.js';
+import { create } from 'express-handlebars';
+
+import film_web_router from './routers/web/film_router.js';
+import ator_router from './routers/api/ator_router.js';
+import genero_router from './routers/api/genero_router.js';
+import reprodutor_router from './routers/api/reprodutor_router.js';
 import syncer from './database/syncer.js';
 // import sequelize from './database/mysql.js';
 //sequelize.sync();
@@ -16,12 +18,36 @@ if(!await syncer()){
 
 
 const app = express();
-app.use(express.json());
-app.get('/', (req, res)=>{
-    res.end('Rodando');
+const hbs = create({
+
+    extname: '.handlebars',
+
+    defaultLayout: 'main',
+
+    layoutsDir: 'views/layouts/',
+
+    partialsDir: 'views/partials/'
+
 });
 
-app.use('/films', film_router);
+app.use(express.json());
+app.use(express.urlencoded());
+
+app.engine('handlebars', hbs.engine);
+
+app.set('view engine', 'handlebars');
+
+app.set('views', './views');
+
+
+
+app.get('/', (req, res) => {
+
+    res.render('home');
+
+});
+
+app.use('/films', film_web_router);
 app.use('/atores', ator_router);
 app.use('/generos', genero_router);
 app.use('/reprodutores', reprodutor_router);
