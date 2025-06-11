@@ -2,9 +2,9 @@ import express from 'express';
 import { create } from 'express-handlebars';
 
 import film_web_router from './routers/web/film_router.js';
-import ator_router from './routers/api/ator_router.js';
-import genero_router from './routers/api/genero_router.js';
-import reprodutor_router from './routers/api/reprodutor_router.js';
+import ator_web_router from './routers/web/ator_router.js';
+import genero_web_router from './routers/web/genero_router.js';
+import reprodutor_web_router from './routers/web/reprodutor_router.js';
 import syncer from './database/syncer.js';
 // import sequelize from './database/mysql.js';
 //sequelize.sync();
@@ -48,9 +48,9 @@ app.get('/', (req, res) => {
 });
 
 app.use('/films', film_web_router);
-app.use('/atores', ator_router);
-app.use('/generos', genero_router);
-app.use('/reprodutores', reprodutor_router);
+app.use('/atores', ator_web_router);
+app.use('/generos', genero_web_router);
+app.use('/reprodutores', reprodutor_web_router);
 
 app.listen(80, ()=> {
     console.log('Escutando...');

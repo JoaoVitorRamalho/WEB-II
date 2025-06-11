@@ -41,13 +41,10 @@ async function createFilm(req, res) {
 
 async function listFilms(req, res) {
 
-    const list = await Film.findAll({ include: [Reprodutor, Genero], raw: true });
-
+    const list = await Film.findAll({ include: [Reprodutor, Genero], raw: true, nest: true });
+    console.log(list);
 
     res.render('films/films', { films: list });
-
-
-
 
 }
 
