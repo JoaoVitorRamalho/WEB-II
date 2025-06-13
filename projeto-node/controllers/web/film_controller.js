@@ -12,7 +12,7 @@ async function createFilm(req, res) {
 
     for (let i = 0; i < req.body.reprodutores.length; i++) {
 
-        const reprodutor = await Reprodutor.findByPk(req.body.reprodutor[i]);
+        const reprodutor = await Reprodutor.findByPk(req.body.reprodutores[i]);
 
         reprodutores.push(reprodutor);
 
@@ -41,10 +41,12 @@ async function createFilm(req, res) {
 
 async function listFilms(req, res) {
 
-    const list = await Film.findAll({ include: [Reprodutor, Genero], raw: true, nest: true });
-    console.log(list);
-
-    res.render('films/films', { films: list });
+    const list = await Film.findAll({ include: [Reprodutor, Genero]});
+    const list_processed = list.map((film)=>{return film.toJSON()});
+    console.log(list_processed);
+    const generos = await Genero.findAll({raw:true});
+    const reprodutores = await Reprodutor.findAll({raw:true});
+    res.render('films/films', { films: list_processed, generos: generos, reprodutores: reprodutores});
 
 }
 
@@ -52,9 +54,14 @@ async function listFilms(req, res) {
 
 async function editFilm(req, res) {
 
-    const film = await Film.findOne({ where: { id: req.body.id } });
-
-    res.render('films/films', { action: 'edit', film_editing: film.dataValues });
+    const film = await Film.findOne({ where: { id: req.body.id }, include: Reprodutor });
+    const film_editing = film.toJSON();
+    console.log(film_editing);
+    const generos = await Genero.findAll({raw:true});
+    const reprodutores = await Reprodutor.findAll({raw:true});
+    film.reprodutores = film.Reprodutors.map((ac)=>{return ac.id;});
+    console.log();
+    res.render('films/films', { action: 'edit', film_editing: film.dataValues, generos: generos });
 
 }
 

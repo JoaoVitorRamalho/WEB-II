@@ -30,6 +30,8 @@ const hbs = create({
 
 });
 
+hbs.handlebars.registerHelper('eq', (a, b)=> {return a == b});
+
 app.use(express.json());
 app.use(express.urlencoded());
 

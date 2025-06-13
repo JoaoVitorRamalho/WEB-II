@@ -18,12 +18,22 @@
 
     <label for="GeneroId">Genero</label><br>
 
-    <input type="text" id="GeneroId" name="GeneroId" value="{{film_editing.GeneroId}}" required><br><br>
+    {{!-- <input type="text" id="GeneroId" name="GeneroId" value="{{film_editing.GeneroId}}" required><br><br> --}}
+    <select name="GeneroId" id="Generoid">
+        {{#each generos}}
+        <option value="{{this.id}}" {{#if (eq this.id ../film_editing.GeneroId)}}selected{{/if}}>
+        {{this.tipo}}</option>
+        {{/each}}
+    </select><br><br>
 
     <label for="reprodutores">Reprodutores</label><br>
 
-    <input type="text" id="reprodutores" name="reprodutores" value="{{film_editing.reprodutores}}"><br><br>
-
+    {{#each reprodutores}}
+        <input type="checkbox" id="reprodutor{{this.id}}"name="reprodutores" value="{{this.id}}" >
+        <label for="reprodutor{{this.id}}">{{this.nome}}</label><br> 
+    {{/each}}
+    {{!-- <input type="text" id="reprodutores" name="reprodutores" value="{{film_editing.reprodutores}}"><br><br> --}}
+    
     <button>{{#if action }}Editar{{else}}Criar{{/if}}</button>
 
 </form>
@@ -44,6 +54,8 @@
 
             <th>Genero</th>
 
+            <th>Reprodutores</th>
+
             <th>Ações</th>
 
         </tr>
@@ -63,6 +75,13 @@
             <td>{{this.year}}</td>
 
             <td>{{this.Genero.tipo}}</td>
+
+            <td>
+                {{#each this.Reprodutors}}
+                    {{this.nome}} 
+                    {{#unless @last}} - {{/unless}}
+                {{/each}}
+            </td>
 
             <td style="display: flex; justify-content: space-evenly;">
 
