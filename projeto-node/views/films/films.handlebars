@@ -29,7 +29,7 @@
     <label for="reprodutores">Reprodutores</label><br>
 
     {{#each reprodutores}}
-        <input type="checkbox" id="reprodutor{{this.id}}"name="reprodutores" value="{{this.id}}" >
+        <input type="checkbox" id="reprodutor{{this.id}}"name="reprodutores" value="{{this.id}}" {{#if (contains ../film_editing.reprodutores this.id)}}checked{{/if}}>
         <label for="reprodutor{{this.id}}">{{this.nome}}</label><br> 
     {{/each}}
     {{!-- <input type="text" id="reprodutores" name="reprodutores" value="{{film_editing.reprodutores}}"><br><br> --}}

@@ -59,15 +59,25 @@ async function editFilm(req, res) {
     console.log(film_editing);
     const generos = await Genero.findAll({raw:true});
     const reprodutores = await Reprodutor.findAll({raw:true});
-    film.reprodutores = film.Reprodutors.map((ac)=>{return ac.id;});
+    film_editing.reprodutores = film_editing.Reprodutors.map((ac)=>{return ac.id;});
     console.log();
-    res.render('films/films', { action: 'edit', film_editing: film.dataValues, generos: generos });
+    res.render('films/films', { action: 'edit', film_editing: film_editing, generos: generos, reprodutores: reprodutores});
 
 }
 
 
 
 async function saveFilm(req, res) {
+
+    const reprodutores = [];
+
+    for (let i = 0; i < req.body.reprodutores.length; i++) {
+
+        const reprodutor = await Reprodutor.findByPk(req.body.reprodutores[i]);
+
+        reprodutores.push(reprodutor);
+
+    }
 
     const film = await Film.findOne({ where: { id: req.body.id } });
 
@@ -80,6 +90,8 @@ async function saveFilm(req, res) {
     film.GeneroId = req.body.GeneroId;
 
     await film.save();
+
+    await film.setReprodutors(reprodutores);
 
     res.render('alerts', { title: 'Films', body: 'Film edited.' });
 
