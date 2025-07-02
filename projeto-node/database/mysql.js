@@ -8,6 +8,6 @@ import { Sequelize } from "sequelize";
 //     password: 'root',
 //     database: 'pratica_node'
 // });
-const sequelize = new Sequelize('<postgresql://pratica_filmes_user:EsmGtJDBgslv50XCI9VUyOGZSkkMBtVI@dpg-d1ir7l2li9vc73bsk6vg-a/pratica_filmes_db_8v7b>');
+const sequelize = new Sequelize('postgresql://pratica_filmes_user:EsmGtJDBgslv50XCI9VUyOGZSkkMBtVI@dpg-d1ir7l2li9vc73bsk6vg-a/pratica_filmes_db_8v7b');
 
 export default sequelize;
