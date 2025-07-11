@@ -1,0 +1,73 @@
+<h1>Generos</h1>
+
+<form action="/generos/{{#if action }}save{{else}}create{{/if}}" method="post">
+
+    <input type="hidden" name="id" value="{{genero_editing.id}}">
+
+    <label for="tipo">Tipo</label><br>
+
+    <input type="text" id="tipo" name="tipo" value="{{genero_editing.tipo}}" required><br><br>
+
+    <label for="descricao">Descricao</label><br>
+
+    <input type="text" id="descricao" name="descricao" value="{{genero_editing.descricao}}" required><br><br>
+
+    <button>{{#if action }}Editar{{else}}Criar{{/if}}</button>
+
+</form>
+
+<hr>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>Title</th>
+
+            <th>Description</th>
+
+            <th>Ações</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {{#each generos}}
+
+        <tr>
+
+            <td>{{this.tipo}}</td>
+
+            <td>{{this.descricao}}</td>
+
+            <td style="display: flex; justify-content: space-evenly;">
+
+                <form action="/generos/edit" method="post">
+
+                    <input type="hidden" name="id" value="{{this.id}}">
+
+                    <button>Edit</button>
+
+                </form>
+
+                <form action="/generos/delete" method="post">
+
+                    <input type="hidden" name="id" value="{{this.id}}">
+
+                    <button>Del</button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        {{/each}}
+
+    </tbody>
+
+</table>

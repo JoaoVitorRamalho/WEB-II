@@ -7,3 +7,21 @@
     font-family: "Nunito", sans-serif;
 
   }
+
+  .theme-dark {
+
+    background-color: black;
+
+    color: beige;
+
+}
+
+
+
+.theme-light {
+
+    background-color: wheat;
+
+    color: black;
+
+}

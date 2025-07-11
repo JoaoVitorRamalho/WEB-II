@@ -1,8 +1,16 @@
+import { useContext } from 'react';
+
+import ThemeContext from '../context/theme.js';
+
+
+
 const Table = ({ titles, data }) => {
+
+    const theme = useContext(ThemeContext);
 
     return (
 
-        <table style={{ border: '0.2px solid black', borderCollapse: 'collapse', width: '70%', margin: 'auto' }}>
+        <table className={`theme-${theme}`}>
 
             <thead>
 
@@ -12,7 +20,7 @@ const Table = ({ titles, data }) => {
 
                         titles.map((v, i) => {
 
-                            return <th style={styles.th}>{v}</th>
+                            return <th>{v}</th>
 
                         })
 
@@ -30,13 +38,13 @@ const Table = ({ titles, data }) => {
 
                         return (
 
-                            <tr style={{ backgroundColor: i % 2 === 0 ? '#f2f2f2' : '#ffffff' }}>
+                            <tr>
 
-                                <td style={styles.td}>{obj.id}</td>
+                                <td>{obj.id}</td>
 
-                                <td style={styles.td}>{obj.nome}</td>
+                                <td>{obj.nome}</td>
 
-                                <td style={styles.td}>{obj.idade}</td>
+                                <td>{obj.idade}</td>
 
                             </tr>
 
@@ -51,34 +59,6 @@ const Table = ({ titles, data }) => {
         </table>
 
     );
-
-};
-
-
-
-const styles = {
-
-    th: {
-
-        padding: '10px',
-
-        textAlign: 'center',
-
-        border: '0.2px solid black',
-
-        fontWeight: 'bold'
-
-    },
-
-    td: {
-
-        padding: '10px',
-
-        textAlign: 'center',
-
-        border: '0.2px solid black'
-
-    },
 
 };
 
